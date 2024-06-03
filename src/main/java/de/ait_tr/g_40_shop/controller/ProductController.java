@@ -60,6 +60,6 @@ public class ProductController {
 
     @GetMapping("/average-Price")
     public BigDecimal getAveragePrice() {
-        return service.getActiveProductsTotalPrice();
+        return service.getActiveProductsAveragePrice();
     }
 }
