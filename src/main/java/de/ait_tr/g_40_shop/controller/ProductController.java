@@ -17,7 +17,7 @@ public class ProductController {
         this.service = service;
     }
 
-    @PostMapping("/example")
+    @PostMapping
     public Product save(@RequestBody Product product) {
         return service.save(product);
     }
@@ -26,7 +26,8 @@ public class ProductController {
         if (id==null) {
             return service.getAllActiveProducts();
         } else {
-            return List.of(service.getById(id));
+            Product product = (service.getById(id));
+            return product == null ? null : List.of(product);
         }
     }
     @PutMapping
@@ -60,6 +61,6 @@ public class ProductController {
 
     @GetMapping("/average-Price")
     public BigDecimal getAveragePrice() {
-        return service.getActiveProductsTotalPrice();
+        return service.getActiveProductsAveragePrice();
     }
 }
