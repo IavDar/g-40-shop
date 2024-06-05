@@ -15,7 +15,7 @@ public class Customer {
     private String name;
     @Column(name = "active")
     private boolean active;
-    private Cart cart;
+//    private Cart cart;
 
     public Long getId() {
         return id;
@@ -41,29 +41,29 @@ public class Customer {
         this.active = active;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
+//    public void setCart(Cart cart) {
+//        this.cart = cart;
+//    }
+//
+//    public Cart getCart() {
+//        return cart;
+//    }
 
-    public Cart getCart() {
-        return cart;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Customer customer)) return false;
-        return isActive() == customer.isActive() && Objects.equals(getId(), customer.getId()) && Objects.equals(getName(), customer.getName()) && Objects.equals(getCart(), customer.getCart());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), isActive(), getCart());
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Customer: id - %d, name - %s, active - %s, cart - %s",
-                id, name, active ? "yes" : "no", cart == null ? "ERROR! Cart is missing" : cart);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Customer customer)) return false;
+//        return isActive() == customer.isActive() && Objects.equals(getId(), customer.getId()) && Objects.equals(getName(), customer.getName()) && Objects.equals(getCart(), customer.getCart());
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(getId(), getName(), isActive(), getCart());
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return String.format("Customer: id - %d, name - %s, active - %s, cart - %s",
+//                id, name, active ? "yes" : "no", cart == null ? "ERROR! Cart is missing" : cart);
+//    }
 }
