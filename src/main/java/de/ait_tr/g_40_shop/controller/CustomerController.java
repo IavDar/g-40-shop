@@ -26,7 +26,8 @@ public class CustomerController {
         if (id == null) {
             return service.getAllActiveCustomers();
         } else {
-            return List.of(service.getById(id));
+            Customer customer = service.getById(id);
+            return customer == null ? null : List.of(customer);
         }
     }
 

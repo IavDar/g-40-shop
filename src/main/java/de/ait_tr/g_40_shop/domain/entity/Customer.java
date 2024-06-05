@@ -15,7 +15,7 @@ public class Customer {
     private String name;
     @Column(name = "active")
     private boolean active;
-//    private Cart cart;
+//  private Cart cart;
 
     public Long getId() {
         return id;
