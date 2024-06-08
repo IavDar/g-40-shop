@@ -22,14 +22,14 @@ public class ProductController {
         return service.save(product);
     }
     @GetMapping
-    public List<ProductDto> get(@RequestParam(required = false) Long id) {
-        if (id==null) {
-            return service.getAllActiveProducts();
-        } else {
-            ProductDto product = (service.getById(id));
-            return product == null ? null : List.of(product);
-        }
+    public ProductDto getById(@RequestParam Long id) {
+       return service.getById(id);
     }
+    @GetMapping("/all")
+    public List<ProductDto> getAll() {
+        return service.getAllActiveProducts();
+    }
+
     @PutMapping
     public ProductDto update(@RequestBody ProductDto product) {
         return service.update(product);
