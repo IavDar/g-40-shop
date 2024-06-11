@@ -3,6 +3,7 @@ package de.ait_tr.g_40_shop.logging;
 import de.ait_tr.g_40_shop.domain.dto.ProductDto;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,5 +87,20 @@ public class AspectLogging {
 
         logger.info("Method getAllActiveProducts of the class ProductServiceImpl finished its work with result: {}", result);
         return result;
+    }
+
+    @Pointcut("execution(* de.ait_tr.g_40_shop.service.ProductServiceImpl.*(..))")
+    public void logAllMethodsOfProductService() {}
+
+    @Before("logAllMethodsOfProductService()")
+    public void beforeProduct(JoinPoint joinPoint) {
+        Object[] params = joinPoint.getArgs();
+        Signature signatureOfMethod = joinPoint.getSignature();
+        logger.info("Method {} called with parameter {}", signatureOfMethod, params[0]);
+    }
+    @After("logAllMethodsOfProductService()")
+    public void afterProduct(JoinPoint joinPoint) {
+        Signature signatureOfMethod = joinPoint.getSignature();
+        logger.info("Method {} finished its work", signatureOfMethod );
     }
 }
