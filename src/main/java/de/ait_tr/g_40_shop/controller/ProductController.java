@@ -1,7 +1,10 @@
 package de.ait_tr.g_40_shop.controller;
 
 import de.ait_tr.g_40_shop.domain.dto.ProductDto;
+import de.ait_tr.g_40_shop.exception_handling.Response;
+import de.ait_tr.g_40_shop.exception_handling.exceptions.FirstTestException;
 import de.ait_tr.g_40_shop.service.interfaces.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -62,5 +65,14 @@ public class ProductController {
     @GetMapping("/average-Price")
     public BigDecimal getAveragePrice() {
         return service.getActiveProductsAveragePrice();
+    }
+
+    // первый способ обработки исключений:
+    // ПЛЮС - точечно настраиваем обработчик ошибок именно для данного контроллера
+    // МИНУС - в каждом контроллере нужно писать такой обработчик
+    @ExceptionHandler(FirstTestException.class)
+//    @ResponseStatus(HttpStatus.NO_CONTENT) // отпр. клиенту статус запроса
+    public Response handleException(FirstTestException e) { // Spring ловит исключение и записывает в эту переменную
+        return new Response(e.getMessage()); //передаем клиенту сообщение
     }
 }

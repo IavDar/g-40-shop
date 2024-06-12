@@ -1,6 +1,7 @@
 package de.ait_tr.g_40_shop.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -12,8 +13,29 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    // Название должно быть длиной хотя бы 3 символа
+    // Название должно начинаться с заглавной буквы
+    // Остальные буквы в названии должны быть строчными (разрешаются пробелы)
+    @NotNull(message = "Product title cannot be null")
+    @NotBlank(message = "Product title cannot be empty")
+    @Pattern(
+            regexp = "[A-Z][a-z]{2,}",
+            message = "Product title should be at least 3 character length "
+                    + "and start with capital letter"
+    )
     @Column(name = "title")
     private String title;
+
+    @DecimalMin(
+            value = "5.00",
+            message = "Product price should be greater or equal than 5.00"
+    )
+    @DecimalMax(
+            value = "100000.00",
+            inclusive = false,
+            message = "Product price should be lesser than 100000.00"
+    )
     @Column(name = "price")
     private BigDecimal price;
     @Column(name = "active")
