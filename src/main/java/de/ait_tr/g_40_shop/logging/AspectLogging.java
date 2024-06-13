@@ -96,7 +96,7 @@ public class AspectLogging {
     public void beforeProduct(JoinPoint joinPoint) {
         Object[] params = joinPoint.getArgs();
         Signature signatureOfMethod = joinPoint.getSignature();
-        logger.info("Method {} called with parameter {}", signatureOfMethod, params[0]);
+        logger.info("Method {} called with parameter {}", signatureOfMethod, params);
     }
     @After("logAllMethodsOfProductService()")
     public void afterProduct(JoinPoint joinPoint) {
