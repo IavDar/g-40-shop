@@ -48,4 +48,10 @@ public class GlobalExceptionHandler {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ProductTitleLengthException.class)
+    public ResponseEntity<Response> handleException(ProductTitleLengthException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

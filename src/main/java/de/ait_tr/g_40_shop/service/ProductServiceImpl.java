@@ -30,17 +30,10 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto save(ProductDto dto) {
        Product entity = mappingService.mapDtoToEntity(dto);
 
-       try {
-
-           if (dto.getId() != null) {
-               throw new ProductIdNotZeroException(String.format("id %d cannot have value", dto.getId()));
+           if (entity.getTitle().length()<3) {
+               throw new ProductTitleLengthException("Product title should be at least 3 character length");
            }
-
            repository.save(entity);
-       }
-       catch (ProductIdNotZeroException e) {
-           throw new ProductIdNotZeroException(e.getMessage());
-       }
 
        return mappingService.mapEntityToDto(entity);
     }
