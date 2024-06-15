@@ -30,6 +30,38 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "active")
+    private boolean active;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -62,18 +94,18 @@ public class User implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(id, user.id) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(roles, user.roles);
+        return isActive() == user.isActive() && Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getRoles(), user.getRoles()) && Objects.equals(getEmail(), user.getEmail());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, getUsername(), getPassword(), roles);
+        return Objects.hash(getId(), getUsername(), getPassword(), getRoles(), getEmail(), isActive());
     }
 
     @Override
     public String toString() {
-        return String.format("User: id - %d, username - %s, role - %s",
-                id, username, roles == null ? "empty" : roles);
+        return String.format("User: id - %d, username - %s, email - %s, active - %s, role - %s",
+                id, username, email, active ? "yes" : "no", roles == null ? "empty" : roles);
     }
 
 }
