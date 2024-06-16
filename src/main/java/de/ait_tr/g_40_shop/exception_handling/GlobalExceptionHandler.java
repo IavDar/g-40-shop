@@ -1,13 +1,13 @@
 package de.ait_tr.g_40_shop.exception_handling;
 
+import de.ait_tr.g_40_shop.exception_handling.exceptions.ExpiredConfirmationCodeException;
 import de.ait_tr.g_40_shop.exception_handling.exceptions.FourthTestException;
+import de.ait_tr.g_40_shop.exception_handling.exceptions.InvalidConfirmationCodeException;
 import de.ait_tr.g_40_shop.exception_handling.exceptions.ThirdTestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import java.awt.*;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -21,6 +21,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(FourthTestException.class)
     public ResponseEntity<Response> handleException(FourthTestException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidConfirmationCodeException.class)
+    public ResponseEntity<Response> handleException(InvalidConfirmationCodeException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(ExpiredConfirmationCodeException.class)
+    public ResponseEntity<Response> handleException(ExpiredConfirmationCodeException e) {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
