@@ -28,7 +28,9 @@ public class AuthService {
         String username = inboundUser.getUsername();
         User foundUser = (User) userService.loadUserByUsername(username);
 
-        if (passwordEncoder.matches(inboundUser.getPassword(), foundUser.getPassword())) {
+        if (
+                passwordEncoder.matches(inboundUser.getPassword(), foundUser.getPassword())
+        ) {
             String accessToken = tokenService.generateAccessToken(foundUser);
             String refreshToken = tokenService.generateRefreshToken(foundUser);
             refreshStorage.put(username, refreshToken);
@@ -51,4 +53,10 @@ public class AuthService {
             return new TokenResponseDto(null, null);
         }
     }
+
+    public boolean isUserActive(String username){
+        User foundUser = (User) userService.loadUserByUsername(username);
+        return foundUser.isActive();
+    }
+
 }
