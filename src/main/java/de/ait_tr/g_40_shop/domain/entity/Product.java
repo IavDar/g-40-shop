@@ -40,6 +40,16 @@ public class Product {
     private BigDecimal price;
     @Column(name = "active")
     private boolean active;
+    @Column(name = "image")
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -77,12 +87,12 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product product)) return false;
-        return active == product.active && Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(price, product.price);
+        return isActive() == product.isActive() && Objects.equals(getId(), product.getId()) && Objects.equals(getTitle(), product.getTitle()) && Objects.equals(getPrice(), product.getPrice()) && Objects.equals(getImage(), product.getImage());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, price, active);
+        return Objects.hash(getId(), getTitle(), getPrice(), isActive(), getImage());
     }
 
     @Override
