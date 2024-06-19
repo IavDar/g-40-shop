@@ -42,6 +42,8 @@ public class Product {
     private boolean active;
     @Column(name = "image")
     private String image;
+    @Column(name = "quantity")
+    private int quantity;
 
     public String getImage() {
         return image;
@@ -49,6 +51,14 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public void setId(Long id) {
@@ -87,17 +97,17 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product product)) return false;
-        return isActive() == product.isActive() && Objects.equals(getId(), product.getId()) && Objects.equals(getTitle(), product.getTitle()) && Objects.equals(getPrice(), product.getPrice()) && Objects.equals(getImage(), product.getImage());
+        return isActive() == product.isActive() && getQuantity() == product.getQuantity() && Objects.equals(getId(), product.getId()) && Objects.equals(getTitle(), product.getTitle()) && Objects.equals(getPrice(), product.getPrice()) && Objects.equals(getImage(), product.getImage());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getPrice(), isActive(), getImage());
+        return Objects.hash(getId(), getTitle(), getPrice(), isActive(), getImage(), getQuantity());
     }
 
     @Override
     public String toString() {
-        return String.format("Product: id - %d, title - %s, price - %s, active - %s",
-                id, title, price, active ? "yes" : "no");
+        return String.format("Product: id - %d, title - %s, price - %s,  active - %s, quantity -%d",
+                id, title, price, active ? "yes" : "no", quantity);
     }
 }

@@ -1,6 +1,7 @@
 package de.ait_tr.g_40_shop.service;
 
 import de.ait_tr.g_40_shop.domain.dto.ProductDto;
+import de.ait_tr.g_40_shop.domain.dto.ProductSupplyDto;
 import de.ait_tr.g_40_shop.domain.entity.Product;
 import de.ait_tr.g_40_shop.exception_handling.exceptions.*;
 import de.ait_tr.g_40_shop.repository.ProductRepository;
@@ -121,5 +122,14 @@ public class ProductServiceImpl implements ProductService {
 
         product.setImage(imageUrl); // эта аннотация @Transactional нужна,
         // чтобы транзакция не закрылась, и изменения в БД отразились
+    }
+
+    @Override
+    public List<ProductSupplyDto> getProductsForSupply() {
+        return repository.findAll()
+                .stream()
+                .filter(Product::isActive)
+                .map(mappingService::mapEntityToSupplyDto)
+                .toList();
     }
 }
